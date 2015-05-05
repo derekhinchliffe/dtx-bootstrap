@@ -72,7 +72,7 @@ class Modal extends dtx.widget.Widget
     this.appendTo(js.Browser.document.body);
 
     // Events to escape
-    js.Browser.document.on("keyup.escapeModal", function (e) {
+    js.Browser.document.on('keyup.escapeModal.${this.modalID}', function (e) {
       var keyEvent:js.html.KeyboardEvent = cast e;
       if (keyEvent.which == 27) dismiss();
       if (keyEvent.which == 13) accept();
@@ -91,6 +91,7 @@ class Modal extends dtx.widget.Widget
   {
     ModalBackdrop.removeBackdrop();
     this.removeClass("in").addClass("fade out");
+    js.Browser.document.off('keyup.escapeModal.${this.modalID}');
     haxe.Timer.delay(function () {
       this.removeFromDOM();
     }, 200);
